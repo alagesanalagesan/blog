@@ -303,13 +303,7 @@
     backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
     // newsletter minimal
-    document.getElementById('newsletterForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const email = e.target.querySelector('input').value;
-      if(!email || !email.includes('@')) return alert('Enter valid email');
-      alert('Subscribed: ' + email + ' — thanks!');
-      e.target.reset();
-    });
+   
 
 
      const SERVER = 'http://localhost:5000';
