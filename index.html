@@ -1,1 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alagesan · Tech Blog — Today's Tech Insights</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #3498db;
+      --primary-dark: #2980b9;
+      --secondary: #9b59b6;
+      --dark: #2c3e50;
+      --darker: #1a252f;
+      --light: #f8f9fa;
+      --gray: #95a5a6;
+      --success: #2ecc71;
+      --error: #e74c3c;
+      --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      --hover-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+      --accent-grad: linear-gradient(135deg, #667eea, #764ba2, #3498db);
+      --glass: rgba(255, 255, 255, 0.15);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --anim: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --anim-slow: 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(44, 62, 80, 0.95);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 18px 0;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transition: all var(--anim) ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    header.scrolled {
+      padding: 12px 0;
+      background: rgba(44, 62, 80, 0.98);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+      transition: transform var(--anim);
+    }
+
+    .logo:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo i {
+      color: var(--primary);
+      font-size: 1.2em;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.9;
+      position: relative;
+      padding: 6px 0;
+      transition: all var(--anim);
+    }
+
+    .nav a:hover {
+      opacity: 1;
+      color: var(--primary);
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width var(--anim);
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: transform var(--anim);
+    }
+
+    .menu-toggle:hover {
+      transform: rotate(90deg);
+    }
+
+    /* Hero */
+    .hero {
+      height: 320px;
+      background: linear-gradient(135deg, #0f1724 0%, #1a2537 50%, #2c3e50 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      margin-top: 90px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.2) 0%, transparent 70%);
+    }
+
+    .hero .hero-inner {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      background: linear-gradient(to right, #fff, #3498db);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+
+    .hero .btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--anim);
+      border: 2px solid transparent;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    .hero .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Blog Section */
+    .blog-section {
+      padding: 60px 0;
+      background: var(--light);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--dark);
+      margin-bottom: 12px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent-grad);
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all var(--anim-slow);
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--hover-shadow);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--accent-grad);
+      opacity: 0;
+      transition: opacity var(--anim);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card .media {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card .media::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3));
+    }
+
+    .card .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1s cubic-bezier(0.2, 0.96, 0.34, 1);
+    }
+
+    .card:hover .media img {
+      transform: scale(1.1);
+    }
+
+    .card .body {
+      padding: 24px;
+      position: relative;
+    }
+
+    .category {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      background: var(--accent-grad);
+      color: #fff;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+
+    .excerpt {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--gray);
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+
+    .meta .author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .read-more {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--anim);
+    }
+
+    .read-more:hover {
+      color: var(--primary-dark);
+      gap: 10px;
+    }
+
+    /* Featured */
+    .featured {
+      background: var(--accent-grad);
+      color: #fff;
+      padding: 40px;
+      border-radius: var(--radius);
+      margin: 50px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.25);
+      animation: pulse 2s infinite alternate;
+    }
+
+    .featured::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      transform: rotate(30deg);
+      opacity: 0.3;
+    }
+
+    .featured img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      transition: transform var(--anim);
+    }
+
+    .featured:hover img {
+      transform: scale(1.03);
+    }
+
+    .featured .txt h3 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .featured .txt p {
+      opacity: 0.95;
+      margin-bottom: 24px;
+      font-size: 1.05rem;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: var(--darker);
+      color: #fff;
+      padding: 40px;
+      border-radius: var(--radius);
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-grad);
+    }
+
+    .newsletter h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .newsletter p {
+      opacity: 0.85;
+      margin-bottom: 24px;
+    }
+
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      transition: all var(--anim);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all var(--anim);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    .btn:active::after {
+      animation: ripple 1s ease-out;
+    }
+
+    #msg {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      transition: all var(--anim);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--darker);
+      color: #fff;
+      padding: 50px 0 30px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-grad);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: all var(--anim);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      padding: 12px;
+      display: none;
+      cursor: pointer;
+      border: none;
+      width: 50px;
+      height: 50px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(52, 152, 219, 0.3);
+      transition: all var(--anim);
+      z-index: 999;
+    }
+
+    .back-to-top.show {
+      display: flex;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-5px) rotate(360deg);
+      box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      from {
+        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.25);
+      }
+      to {
+        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+      }
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(25, 25);
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(40, 40);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .featured {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--dark);
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        display: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 999;
+      }
+
+      .nav.active {
+        display: flex;
+        animation: fadeInUp 0.3s ease-out;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero {
+        height: 280px;
+        margin-top: 70px;
+        text-align: center;
+      }
+
+      .hero .hero-inner {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 95%;
+      }
+
+      .featured,
+      .newsletter {
+        padding: 30px 20px;
+      }
+
+      .hero {
+        height: 240px;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="container header-row">
+      <a class="logo" href="#home">
+        <i class="fas fa-rocket"></i>
+        <span>Alagesan</span>Tech
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#blog"><i class="fas fa-newspaper"></i> Blog</a>
+        <a href="#featured"><i class="fas fa-star"></i> Featured</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div>
+        <h1>Latest Tech Insights & Innovations</h1>
+        <p>Curated analysis on AI breakthroughs, hardware advancements, and industry regulations. Updated daily with verified sources.</p>
+      </div>
+      <div>
+        <a class="btn" href="#blog">
+          Explore Articles <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <main class="blog-section" id="blog">
+    <div class="container">
+      <div class="section-title">
+        <h2>Latest Tech Headlines</h2>
+        <p>Hand-picked tech stories with in-depth analysis and verified sources</p>
+      </div>
+
+      <div id="blogGrid" class="blog-grid" aria-live="polite"></div>
+
+      <!-- Featured -->
+      <section id="featured" class="featured" aria-labelledby="featured-title">
+        <div class="img-wrap">
+          <img id="featuredImage" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80" alt="Featured tech article illustration">
+        </div>
+        <div class="txt">
+          <div class="category">Editor's Pick</div>
+          <h3 id="featuredTitle">Quantum Computing & AI Infrastructure: The New Frontier</h3>
+          <p id="featuredExcerpt">From groundbreaking supercomputing breakthroughs to new AI governance frameworks — the tech landscape is evolving at unprecedented speed. Explore how quantum advancements are reshaping computational possibilities and what new regulations mean for developers.</p>
+          <a id="featuredRead" class="read-more" href="#" target="_blank" rel="noopener">
+            Read Full Analysis <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- Newsletter -->
+      <div class="newsletter" id="contact">
+        <h3>Stay Ahead with Tech Insights</h3>
+        <p>Get weekly curated analysis on AI breakthroughs, hardware updates, and industry trends. No spam, just quality content.</p>
+        
+        <form id="newsletterForm">
+          <div class="form-grid">
+            <input name="name" id="name" placeholder="Your name (optional)" />
+            <input name="email" id="email" placeholder="Your email address *" type="email" required />
+          </div>
+          
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <button id="subscribeBtn" class="btn" type="submit">
+              <i class="fas fa-paper-plane"></i> Subscribe Now
+            </button>
+            <small id="status" style="opacity: 0.8;"></small>
+          </div>
+          
+          <div id="msg"></div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="font-weight: 800; font-size: 1.4rem; margin-bottom: 16px;">
+            <i class="fas fa-rocket" style="color: var(--primary);"></i> Alagesan<span style="color: var(--primary);">Tech</span>
+          </div>
+          <div style="opacity: 0.85; line-height: 1.6;">
+            Independent tech analysis and commentary. Bridging the gap between innovation and understanding.
+          </div>
+        </div>
+        
+        <div>
+          <div style="font-weight: 700; margin-bottom: 16px; font-size: 1.1rem;">Quick Links</div>
+          <div class="footer-links">
+            <a href="#home"><i class="fas fa-chevron-right"></i> Home</a>
+            <a href="#blog"><i class="fas fa-chevron-right"></i> Tech Blog</a>
+            <a href="#featured"><i class="fas fa-chevron-right"></i> Featured Insights</a>
+            <a href="#contact"><i class="fas fa-chevron-right"></i> Newsletter</a>
+          </div>
+        </div>
+        
+        <div>
+          <div style="font-weight: 700; margin-bottom: 16px; font-size: 1.1rem;">Connect</div>
+          <div style="opacity: 0.85; line-height: 1.6;">
+            <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> alagesanalagu178@gmail.com</p>
+            <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +91 79043 21890</p>
+            <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Sanarpatti, Dindigul, India</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        &copy; 2025 Alagesan Tech Blog. All rights reserved. Content sourced from verified industry publications.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script>
+    // Blog posts data
+    const blogPosts = [
+      {
+        id: 1,
+        title: "OpenAI Unveils GPT-5: Revolutionary Multimodal AI with Enhanced Reasoning",
+        excerpt: "OpenAI's latest model demonstrates unprecedented reasoning capabilities and real-time multimodal processing, setting new benchmarks in AI development.",
+        category: "ARTIFICIAL INTELLIGENCE",
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+        author: "Dr. Sarah Chen",
+        date: "Dec 12, 2025",
+        readTime: "5 min",
+        source: "https://techcrunch.com/2025/12/openai-gpt-5-launch"
+      },
+      {
+        id: 2,
+        title: "Quantum Supremacy Achieved: Google's 1000-Qubit Processor Breaks Records",
+        excerpt: "Google announces breakthrough in quantum computing with stable 1000-qubit processor, solving problems previously deemed impossible for classical computers.",
+        category: "QUANTUM COMPUTING",
+        image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
+        author: "Michael Rodriguez",
+        date: "Dec 11, 2025",
+        readTime: "4 min",
+        source: "https://www.nature.com/articles/quantum-breakthrough-2025"
+      },
+      {
+        id: 3,
+        title: "EU's AI Act 2.0: Stricter Regulations for Generative AI Systems",
+        excerpt: "European Union introduces comprehensive AI governance framework focusing on transparency, accountability, and ethical deployment of generative AI technologies.",
+        category: "REGULATION",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+        author: "Elena Petrova",
+        date: "Dec 10, 2025",
+        readTime: "6 min",
+        source: "https://www.eu-commission.ai/regulations-2025"
+      },
+      {
+        id: 4,
+        title: "Apple's M4 Chip: 3nm Architecture Delivers 40% Performance Boost",
+        excerpt: "Apple's next-generation silicon features revolutionary energy efficiency and neural engine improvements, redefining mobile computing capabilities.",
+        category: "HARDWARE",
+        image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80",
+        author: "James Wilson",
+        date: "Dec 9, 2025",
+        readTime: "3 min",
+        source: "https://www.apple.com/newsroom/m4-chip"
+      },
+      {
+        id: 5,
+        title: "Meta's AR Glasses: Seamless Integration with Neural Interfaces",
+        excerpt: "Meta unveils next-generation AR glasses with direct neural feedback, creating unprecedented immersive experiences and productivity tools.",
+        category: "AUGMENTED REALITY",
+        image: "https://images.unsplash.com/photo-1547394765-185e1e68f34e?auto=format&fit=crop&w=800&q=80",
+        author: "Lisa Wang",
+        date: "Dec 8, 2025",
+        readTime: "4 min",
+        source: "https://www.theverge.com/meta-ar-glasses-2025"
+      },
+      {
+        id: 6,
+        title: "Sustainable Data Centers: Microsoft's Underwater Cooling Solution",
+        excerpt: "Microsoft deploys revolutionary underwater data center cooling system, reducing energy consumption by 60% and setting new sustainability standards.",
+        category: "SUSTAINABILITY",
+        image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+        author: "Robert Kim",
+        date: "Dec 7, 2025",
+        readTime: "5 min",
+        source: "https://www.microsoft.com/sustainability/datacenters"
+      }
+    ];
+
+    // ================ YOUR BACKEND CONNECTION ================
+    const SERVER = 'http://localhost:5000';
+    
+    // DOM Elements for backend connection
+    const blogGrid = document.getElementById('blogGrid');
+    const header = document.getElementById('header');
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('nav');
+    const backToTop = document.getElementById('backToTop');
+    const newsletterForm = document.getElementById('newsletterForm');
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    const status = document.getElementById('status');
+    const msg = document.getElementById('msg');
+
+    // Create blog cards
+    function createCard(post) {
+      const article = document.createElement('article');
+      article.className = 'card';
+      article.setAttribute('role', 'article');
+      
+      article.innerHTML = `
+        <div class="media" aria-hidden="true">
+          <img loading="lazy" src="${post.image}" alt="${post.title}">
+        </div>
+        <div class="body">
+          <div class="category" aria-label="Category: ${post.category}">${post.category}</div>
+          <h3 class="title">${post.title}</h3>
+          <p class="excerpt">${post.excerpt}</p>
+          <div class="meta">
+            <div class="author">
+              <img src="https://i.pravatar.cc/150?img=${post.id + 10}" alt="${post.author}">
+              <span>${post.author}</span>
+            </div>
+            <div>
+              <span style="margin-right: 10px;">${post.date} • ${post.readTime} read</span>
+              <a class="read-more" href="${post.source}" target="_blank" rel="noopener noreferrer" aria-label="Read full article: ${post.title}">
+                Read <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      return article;
+    }
+
+    // Render all blog posts
+    function renderBlogPosts() {
+      blogGrid.innerHTML = '';
+      blogPosts.forEach(post => {
+        blogGrid.appendChild(createCard(post));
+      });
+      
+      // Update featured section with the first post
+      const featuredPost = blogPosts[0];
+      if (featuredPost) {
+        document.getElementById('featuredTitle').textContent = featuredPost.title;
+        document.getElementById('featuredExcerpt').textContent = featuredPost.excerpt;
+        document.getElementById('featuredRead').href = featuredPost.source;
+        document.getElementById('featuredImage').src = featuredPost.image;
+        document.getElementById('featuredImage').alt = featuredPost.title;
+      }
+    }
+
+    // ================ YOUR ORIGINAL BACKEND FUNCTIONS ================
+    
+    // Function to show message
+    function showMessage(text, type) {
+      msg.textContent = text;
+      msg.style.color = type === 'success' ? 'var(--success)' : '#ff6b6b';
+      msg.style.backgroundColor = type === 'success' ? 'rgba(46, 204, 113, 0.1)' : 'rgba(255, 107, 107, 0.1)';
+      
+      // Auto-hide message after 5 seconds
+      setTimeout(() => {
+        msg.textContent = '';
+        msg.style.backgroundColor = 'transparent';
+      }, 5000);
+    }
+
+    // ================ NEWSLETTER FORM HANDLING (YOUR BACKEND) ================
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      msg.textContent = '';
+      status.textContent = '';
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      
+      // Validation
+      if (!email || !email.includes('@')) {
+        showMessage('Please enter a valid email address.', 'error');
+        return;
+      }
+      
+      // Disable button and show loading
+      const originalBtnText = subscribeBtn.innerHTML;
+      subscribeBtn.disabled = true;
+      subscribeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+      status.textContent = 'subscribing...';
+      
+      try {
+        // Send to your backend
+        const res = await fetch(SERVER + '/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email })
+        });
+        
+        const json = await res.json();
+        
+        if (res.ok && json.success) {
+          showMessage(`Thank you ${name || 'there'}! You've been subscribed to our tech newsletter.`, 'success');
+          newsletterForm.reset();
+        } else {
+          showMessage(json.message || 'Subscription failed. Please try again.', 'error');
+        }
+      } catch (err) {
+        showMessage('Network error. Please check your connection.', 'error');
+      } finally {
+        // Reset button
+        subscribeBtn.disabled = false;
+        subscribeBtn.innerHTML = originalBtnText;
+        status.textContent = '';
+      }
+    });
+
+    // ================ ENHANCED UI FUNCTIONS ================
+    
+    // Mobile menu toggle
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuToggle.innerHTML = nav.classList.contains('active') 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !menuToggle.contains(e.target) && window.innerWidth <= 768) {
+        nav.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      // Header background
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      // Back to top button
+      backToTop.classList.toggle('show', window.scrollY > 500);
+      
+      // Card animations on scroll
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        if (cardTop < window.innerHeight - 100) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }
+      });
+    });
+
+    // Back to top functionality
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (window.innerWidth <= 768) {
+            nav.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+      });
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBlogPosts();
+      
+      // Add hover effect to cards
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+      
+      // Preload images for better UX
+      blogPosts.forEach(post => {
+        const img = new Image();
+        img.src = post.image;
+      });
+    });
+
+    // Add keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    });
+  </script>
+</body>
+  </html>
